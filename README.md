@@ -82,4 +82,7 @@ In this case, the challenge will be evaluated on 900 points which are distribute
 3. Click on Submit Challenge.
 4. Wait for the results.
 
+### ❓ Additional information
+In this case, as can be seen in /tests, the tests to be performed are given, so no I/O example will be given. Based on these tests, you should be able to complete all objectives.
 
+It is not allowed to modify the basic functionality of the tests provided. Complementary tests may be added, but these will not be evaluated.
