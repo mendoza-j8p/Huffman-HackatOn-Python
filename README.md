@@ -1,6 +1,18 @@
 # NUWE Backend Challenge - Python - Algorithms 1
 
-## Objectives
+### Category   ➡️   Software
+
+### Subcategory   ➡️   Python Backend
+
+### Difficulty   ➡️   (Basic)
+
+## 🌐 Background
+
+As the world of backend development continues to expand, the ability to implement complex algorithms efficiently becomes increasingly valuable. NUWE's Backend Challenge in Python is designed to test these skills with a focus on algorithmic problem-solving. In this particular challenge, the spotlight is on the Huffman Coding algorithm, a cornerstone of modern text compression techniques.
+
+Participants are tasked with developing a simple yet effective Huffman Coding algorithm to compress text. This algorithm intricately combines two essential data structures: a PriorityQueue and a tree. A PriorityQueue, as the name suggests, is a queue where elements are constantly ordered based on their priorities. Trees, on the other hand, are versatile structures widely used in various applications like file systems, natural language processing, and more.
+
+## 🎯 Objectives
 
 The objective of the challenge is to be able to implement a simple HuffmanCoding algorithm to compress text. This algorithm is based on a **PriorityQueue** and a **tree**. A **PriorityQueue** is Queue based on priorities, ie a constantly ordered queue.
 A **tree** is a powerful data structure commonly used to represent (or manipulate) hierarchical data. This is used in File System structure, NLP, the ~~in~~famous DOM, and much more.
@@ -17,7 +29,7 @@ The **Huffman Coding** algorithm is the fundation of modern text compression. It
 
 Each method is documented in its corresponding file. But it is strongly recommended to first understand how HuffmanCoding works to be able to solve this challenge! Good luck!
 
-## Guides
+## ❓ Guides
 
 ### How to run
 
@@ -28,7 +40,7 @@ Then you can run `make run` to run the main application.
 
 To test the the objectives run `make test` in the root folder.
 
-### Repo structure
+### 📂 Repository Structure
 
 A repository tree is provided below and should not be modified. Everything you need to develop the challenge is already included.
 ```bash
@@ -52,7 +64,7 @@ nuwe-backend-py-alg1/
 
 **It is necessary to modify only the files proposed in the objectives.**
 
-### Scoring
+### 📊 Evaluation
 
 The final score will be given according to whether or not the objectives have been met.
 
@@ -63,7 +75,7 @@ In this case, the challenge will be evaluated on 900 points which are distribute
 - Objective 3: 225 points
 - Objective 4: 225 points
 
-### How to solve the challenge
+### 📤 Submission
 
 1. Solve the proposed objectives.
 2. Push the changes you have made.
