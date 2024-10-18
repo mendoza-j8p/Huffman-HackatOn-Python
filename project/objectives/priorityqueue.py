@@ -9,28 +9,33 @@ class PriorityQueue:
             @params value: Element to push to the PQ.
             @returns: None
         """
-        pass
+        self.pq.append(value)
+        self.pq.sort(key=self.compare)
 
     def pop(self):
         """
             Returns and removes the first element on the queue.
-            @returns: First element of the queue
+            @returns: First element of the queuea
         """
-        return 0
+        if not self.pq:
+            return None
+        
+        return self.pq.pop(0)
+
 
     def isEmpty(self):
         """
             Check if the PriorityQueue is empty or not.
             @returns: True if PriorityQueue is empty, otherwise false
         """
-        return False
+        return len(self.pq) == 0
 
     def length(self):
         """
             Returns the amount of elements in the PriorityQueue
             @returns: The amount of elements in the PriorityQueue
         """
-        return 0
+        return len(self.pq)
 
     def __str__(self):
         return str([f for n,f in self.pq])
