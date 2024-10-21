@@ -12,7 +12,24 @@ class HuffmanTree:
             @params data: Text to create the HuffmanTree.
             @returns: (void). It doesn't return anything.
         """
-        pass
+        if not data:
+            raise ValueError("Data cannot be empty")  # O cualquier otra validación que necesites
+        
+        # Paso 1: Obtener las frecuencias de los caracteres
+        freq_dic = self.frequencies(data)
+
+        # Paso 2: Crear nodos para cada carácter y añadirlos a la PriorityQueue
+        for char, freq in freq_dic.items():
+            node = self.createNode(char, freq) # Crea un nodo para cada carácter
+            self.pq.push((node, freq)) # Añade el nodo a la PriorityQueue
+        
+        # Paso 3: Construir el árbol de Huffman
+        while self.pq.length() > 1:
+            left = self.pq.pop() # Saca el nodo con menor frecuencia
+            right = self.pq.pop() # Saca el segundo nodo con menor frecuencia
+            composed_node = self.composeNode(left[0], right[0]) # Crea un nodo compuesto a partir de los dos nodos sacados
+            self.pq.push((composed_node, composed_node.freq)) # Añade el nodo compuesto a la PriorityQueue
+        self.root = self.pq.pop()[0]  # Paso 4: Asignar la raíz del árbol de Huffman. Este será el nodo raíz
 
     def composeNode(self, left, right):
         """
@@ -24,11 +41,11 @@ class HuffmanTree:
             @returns: A Node() composed from the left and right node but without any character associated.
         """
         if left is None or right is None:
-            raise Exception
+            raise Exception("Both left and right nodes must be provided")
         
-        return None
+        return self.createNode(None, left.freq + right.freq, left, right)
 
-    def createNode(self, char, freq, left, right):
+    def createNode(self, char, freq, left=None, right=None):
         """
             Instantiates and returns a new Node with params as
             its attributes.
@@ -38,7 +55,7 @@ class HuffmanTree:
             @param right: The rigth child of the Node.
             @returns: A new Node() with params as attributes.
         """
-        return None
+        return Node(char, freq, left, right)
 
     def frequencies(self, data):
         """
@@ -46,8 +63,16 @@ class HuffmanTree:
             @params data: Plain text
             @returns: Dictionary containing key as each character and its value the amount of times the character appears in data.
         """
+        freq_dic = {}
 
-        return {}
+        for char in data:
+            if char in freq_dic:
+                freq_dic[char] += 1
+            else:
+                freq_dic[char] = 1
+
+
+        return freq_dic
 
 
     def getCodes(self):
