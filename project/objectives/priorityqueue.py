@@ -8,9 +8,7 @@ class PriorityQueue:
         self.pq.sort(key=self.compare)
 
     def pop(self):
-        self.isEmpty()
-        return self.pq.pop(0)
-
+        return self.pq.pop(0) if not self.isEmpty() else None
 
     def isEmpty(self):
         return len(self.pq) == 0
