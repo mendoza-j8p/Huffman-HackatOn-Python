@@ -42,12 +42,21 @@ class HuffmanTree:
     def frequencies(self, data):
         return dict(Counter(data))
 
-
     def getCodes(self):
         return self.getCodesRecursive(self.root, '')
 
     def getCodesRecursive(self, node, code):
-        return {}
+        if node is None:
+            return {}
+        codes = {}
+
+        if node.char is not None:
+            codes[node.char] = code
+        
+        codes.update(self.getCodesRecursive(node.left, code + '0'))
+        codes.update(self.getCodesRecursive(node.right, code + '1'))
+
+        return codes
 
     def printTree(self):
         self.printTreeRecursive(self.root, '')
