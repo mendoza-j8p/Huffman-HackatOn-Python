@@ -6,8 +6,8 @@ from project.objectives.huffmancoding import HuffmanCoding
 
 data = "This is a test"
 huffman = HuffmanTree()
-huffman.createHuffmanTree(data)
-codes = huffman.getCodes()
+huffman.create_huffman_tree(data)
+codes = huffman.get_codes()
 
 encodedText, huffmanTree = HuffmanCoding.encode(data)
 decodedText = HuffmanCoding.decode(encodedText, huffmanTree)

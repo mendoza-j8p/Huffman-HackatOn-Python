@@ -13,7 +13,7 @@ $(direnv):
 
 test: | $(direnv)
 	source $(direnv)bin/activate && \
-	$(direnv)bin/python3 -m pytest
+	$(direnv)bin/python3 -m pytest $(ARGS)
 
 run: | $(direnv)
 	source $(direnv)bin/activate && \

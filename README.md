@@ -19,11 +19,11 @@ A **tree** is a powerful data structure commonly used to represent (or manipulat
 The **Huffman Coding** algorithm is the fundation of modern text compression. It stores the frequency of appearance for each different character in a text, and organizes them in a tree. 
 
 
-1. **Objective 1**: Implement the PriorityQueue methods (`push()`,`pop()`,`isEmpty()`and `length()`). Modify the `priorityqueue.py` file.
+1. **Objective 1**: Implement the PriorityQueue methods (`push()`,`pop()`,`is_empty()`and `length()`). Modify the `priorityqueue.py` file.
 
-2. **Objective 2**: Implement the functionality to create the HuffmanTree. These are the following functions: `frequencies()`, `createNode()` and `composeNode()`. Finally implement the functionaly to create a new HuffmanTree in the `createHuffmanTree()` function used all previous functions. Modify the `huffmantree.py` file.
+2. **Objective 2**: Implement the functionality to create the HuffmanTree. These are the following functions: `frequencies()`, `create_node()` and `compose_node()`. Finally implement the functionaly to create a new HuffmanTree in the `create_huffman_tree()` function used all previous functions. Modify the `huffmantree.py` file.
 
-3. **Objective 3**: Once the HuffmanTree is implemented next thing should be to get the **prefix code** for each symbol. Implement the `getCodes()` to traverse the HuffmanTree and return a dictionary with the codes for each symbol. It is strongly recommended to implement it recursively in the `getCodesRecursive()` function. Modify the `huffmantree.py` file.
+3. **Objective 3**: Once the HuffmanTree is implemented next thing should be to get the **prefix code** for each symbol. Implement the `get_codes()` to traverse the HuffmanTree and return a dictionary with the codes for each symbol. It is strongly recommended to implement it recursively in the `get_codes_recursive()` function. Modify the `huffmantree.py` file.
 
 4. **Objective 4**: Implement the HuffmanCoding `encode()` and `decode()` functions. Modify the `huffmancoding.py` file.
 

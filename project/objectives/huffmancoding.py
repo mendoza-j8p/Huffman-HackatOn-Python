@@ -18,31 +18,31 @@ class HuffmanCoding:
 
         # Crear el árbol de Huffman
         huffman_tree = HuffmanTree()
-        huffman_tree.createHuffmanTree(data)
+        huffman_tree.create_huffman_tree(data)
 
         # Obtener los códigos de Huffman
-        huffman_codes = huffman_tree.getCodes()
+        huffman_codes = huffman_tree.get_codes()
 
         # Codificar los datos
         encoded_data = ''.join(huffman_codes[char] for char in data)
 
         return (encoded_data, huffman_tree)
-    
+
     @staticmethod
-    def decode(encodedData, huffmanTree=None):
+    def decode(encoded_data, huffman_tree=None):
         """
-            Decodes into text the encodedData using the huffmantree passed as a parameter.
-            @param encodedData: Binary string representation of encoded text. 
-            @param huffmanTree: HuffmanTree object representation created from the decoded version of the encoded data. This will be used to decode the encodedData parameter.
-            @returns: decoded data (plain text) using the huffmanTree and the encodedData parameters.
+            Decodes into text the encoded_data using the huffmantree passed as a parameter.
+            @param encoded_data: Binary string representation of encoded text. 
+            @param huffmanTree: HuffmanTree object representation created from the decoded version of the encoded data. This will be used to decode the encoded_data parameter.
+            @returns: decoded data (plain text) using the huffmanTree and the encoded_data parameters.
         """
-        if huffmanTree is None:
+        if huffman_tree is None:
             raise ValueError("HuffmanTree must be provided for decoding.")
 
         decoded_data = []
-        current_node = huffmanTree.root
+        current_node = huffman_tree.root
 
-        for bit in encodedData:
+        for bit in encoded_data:
             # Navegar el árbol de Huffman según el bit
             if bit == '0':
                 current_node = current_node.left
@@ -52,6 +52,6 @@ class HuffmanCoding:
             # Si es una hoja, añadir el carácter al resultado
             if current_node.char is not None:
                 decoded_data.append(current_node.char)
-                current_node = huffmanTree.root  # Reiniciar al nodo raíz
+                current_node = huffman_tree.root  # Reiniciar al nodo raíz
 
         return ''.join(decoded_data)

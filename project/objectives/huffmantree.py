@@ -5,9 +5,9 @@ from project.common.node import Node
 class HuffmanTree:
     def __init__(self):
         self.root = None # Root node
-        self.pq = PriorityQueue(compare=lambda x : x[1]) # Priority Queue
+        self.priority_queue = PriorityQueue(compare=lambda x : x[1]) # Priority Queue
 
-    def createHuffmanTree(self,data):
+    def create_huffman_tree(self,data):
         """
             Generates the whole HuffmanTree for a text passed as argument.
         """
@@ -17,35 +17,35 @@ class HuffmanTree:
         freq_dict = self.frequencies(data)
 
         for char, freq in freq_dict.items():
-            node = self.createNode(char, freq)
-            self.pq.push((node, freq))
-        
-        while self.pq.length() > 1:
-            left = self.pq.pop()
-            right = self.pq.pop() 
-            composed_node = self.composeNode(left[0], right[0])
-            self.pq.push((composed_node, composed_node.freq))
-        self.root = self.pq.pop()[0]
+            node = self.create_node(char, freq)
+            self.priority_queue.push((node, freq))
 
-    def composeNode(self, left, right):
+        while self.priority_queue.length() > 1:
+            left = self.priority_queue.pop()
+            right = self.priority_queue.pop()
+            composed_node = self.compose_node(left[0], right[0])
+            self.priority_queue.push((composed_node, composed_node.freq))
+        self.root = self.priority_queue.pop()[0]
+
+    def compose_node(self, left, right):
         """
             Creates a new Node without any character associated
         """
         if left is None or right is None:
             raise ValueError("Both left and right nodes must be provided")
-        
-        return self.createNode(None, left.freq + right.freq, left, right)
 
-    def createNode(self, char, freq, left=None, right=None):
+        return self.create_node(None, left.freq + right.freq, left, right)
+
+    def create_node(self, char, freq, left=None, right=None):
         return Node(char, freq, left, right)
 
     def frequencies(self, data):
         return dict(Counter(data))
 
-    def getCodes(self):
-        return self.getCodesRecursive(self.root, '')
+    def get_codes(self):
+        return self.get_codes_recursive(self.root, '')
 
-    def getCodesRecursive(self, node, code):
+    def get_codes_recursive(self, node, code):
         if node is None:
             return {}
         codes = {}
@@ -53,19 +53,19 @@ class HuffmanTree:
         if node.char is not None:
             codes[node.char] = code
         
-        codes.update(self.getCodesRecursive(node.left, code + '0'))
-        codes.update(self.getCodesRecursive(node.right, code + '1'))
+        codes.update(self.get_codes_recursive(node.left, code + '0'))
+        codes.update(self.get_codes_recursive(node.right, code + '1'))
 
         return codes
 
-    def printTree(self):
-        self.printTreeRecursive(self.root, '')
-        
-    def printTreeRecursive(self, node, code):
+    def print_tree(self):
+        self.print_tree_recursive(self.root, '')
+
+    def print_tree_recursive(self, node, code):
         if node.char is not None:
             print("{} -> {}".format(node.char, code))
 
         if node.left is not None:
-            self.printTreeRecursive(node.left, code + '0')
+            self.print_tree_recursive(node.left, code + '0')
         if node.right is not None:
-            self.printTreeRecursive(node.right, code + '1')
+            self.print_tree_recursive(node.right, code + '1')

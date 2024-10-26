@@ -37,69 +37,69 @@ class Test_Objective_1:
         'passed': 0,
         }
 
-    pq = PriorityQueue()
+    priority_queue = PriorityQueue()
 
     @pytest.fixture(autouse=True)
     def reset_test(self):
-        self.pq = PriorityQueue()
+        self.priority_queue = PriorityQueue()
 
     def test_empty(self):
         self.obj["total"] += 1
 
-        assert self.pq.length() == 0
-        assert self.pq.isEmpty()
+        assert self.priority_queue.length() == 0
+        assert self.priority_queue.is_empty()
         
         self.obj["passed"] += 1
 
     def test_push(self):
         self.obj["total"] += 1
-        self.pq.push(1)
-        assert self.pq.length() == 1
-        assert not self.pq.isEmpty()
+        self.priority_queue.push(1)
+        assert self.priority_queue.length() == 1
+        assert not self.priority_queue.is_empty()
         self.obj["passed"] += 1
 
     def test_multiple_push(self):
         self.obj["total"] += 1
         for i in range(15, 0, -1):
-            self.pq.push(i)
-        assert self.pq.length() == 15
-        assert not self.pq.isEmpty() 
+            self.priority_queue.push(i)
+        assert self.priority_queue.length() == 15
+        assert not self.priority_queue.is_empty() 
         self.obj["passed"] += 1
 
     def test_pop_empty(self):
         self.obj["total"] += 1
-        assert self.pq.isEmpty()
-        assert self.pq.pop() == None
-        assert self.pq.length() == 0
+        assert self.priority_queue.is_empty()
+        assert self.priority_queue.pop() == None
+        assert self.priority_queue.length() == 0
         self.obj["passed"] += 1
 
     def test_push_pop(self):
         self.obj["total"] += 1
-        assert self.pq.isEmpty()
+        assert self.priority_queue.is_empty()
         for i in range(50,0,-1):
-            self.pq.push(i)
+            self.priority_queue.push(i)
 
-        assert not self.pq.isEmpty()
-        assert self.pq.length() == 50
+        assert not self.priority_queue.is_empty()
+        assert self.priority_queue.length() == 50
 
-        # Check pq is ordered
-        for i in range(1, self.pq.length()):
-            assert self.pq.pop() == i
+        # Check priority_queue is ordered
+        for i in range(1, self.priority_queue.length()):
+            assert self.priority_queue.pop() == i
 
         self.obj["passed"] += 1
 
     def test_compare_tuple(self):
         self.obj["total"] += 1
-        self.pq = PriorityQueue(compare=lambda x: x[0] + x[1])
-        assert self.pq.isEmpty()
-        assert self.pq.length() == 0
+        self.priority_queue = PriorityQueue(compare=lambda x: x[0] + x[1])
+        assert self.priority_queue.is_empty()
+        assert self.priority_queue.length() == 0
 
         for i in range(15, 0, -1):
             val = (i, i)
-            self.pq.push(val)
+            self.priority_queue.push(val)
 
         for i in range(1,15):
-            assert self.pq.pop() == (i,i)
+            assert self.priority_queue.pop() == (i,i)
 
         self.obj["passed"] += 1
 
@@ -119,36 +119,36 @@ class Test_Objective_2:
         self.obj["total"] += 1
 
         try:
-            _ = self.huffman.createNode(freq=20, left=None, right=None)
+            _ = self.huffman.create_node(freq=20, left=None, right=None)
             assert 1 == 0 # Should never reached
         except Exception as e:
             assert True
 
         try:
-            _ = self.huffman.createNode(char='A', left=None, right=None)
+            _ = self.huffman.create_node(char='A', left=None, right=None)
             assert 1 == 0 # Should never reached
         except Exception as e:
             assert True
 
         try:
-            _ = self.huffman.createNode(left=None, right=None)
+            _ = self.huffman.create_node(left=None, right=None)
             assert 1 == 0 # Should never be reached.
         except Exception as e:
             assert True
 
-        node = self.huffman.createNode(char='A', freq=20, left=None, right=None)
+        node = self.huffman.create_node(char='A', freq=20, left=None, right=None)
         assert node.char == 'A'
         assert node.freq == 20
         assert node.left == None
         assert node.right == None
 
-        nodeB = self.huffman.createNode(char='B', freq=50, left=None, right=node)
+        nodeB = self.huffman.create_node(char='B', freq=50, left=None, right=node)
         assert nodeB.char == 'B'
         assert nodeB.freq == 50
         assert nodeB.left == None
         assert nodeB.right == node
 
-        nodeC = self.huffman.createNode(char='C', freq=0, left=node, right=nodeB)
+        nodeC = self.huffman.create_node(char='C', freq=0, left=node, right=nodeB)
         assert nodeC.char == 'C'
         assert nodeC.freq == 0
         assert nodeC.left == node
@@ -158,28 +158,28 @@ class Test_Objective_2:
 
     def test_compose_node(self):
         self.obj["total"] += 1
-        a = self.huffman.createNode(char='C', freq=10, left=None, right=None)
-        b = self.huffman.createNode(char='B', freq=25, left=None, right=None)
+        a = self.huffman.create_node(char='C', freq=10, left=None, right=None)
+        b = self.huffman.create_node(char='B', freq=25, left=None, right=None)
         
         try:
-            ab = self.huffman.composeNode(None,None)
+            ab = self.huffman.compose_node(None,None)
             assert 1 == 0  # Should never be reached
         except:
             assert True
 
         try:
-            ab = self.huffman.composeNode(a,None)
+            ab = self.huffman.compose_node(a,None)
             assert 1 == 0  # Should never be reached
         except:
             assert True
 
         try:
-            ab = self.huffman.composeNode(None,b)
+            ab = self.huffman.compose_node(None,b)
             assert 1 == 0  # Should never be reached
         except:
             assert True
         
-        ab = self.huffman.composeNode(a,b)
+        ab = self.huffman.compose_node(a,b)
         assert ab.char == None
         assert ab.freq == a.freq + b.freq
         assert ab.left == a
@@ -218,18 +218,18 @@ class Test_Objective_2:
         text3 = "THIS IS AN INCREDIBLY LONG TEXT THAT YOU SHOULD NOT BE READING BECAUSE IT DOES NOT GIVE ANYTHING BUT A LONG TEXT. I RECOMMEND READING ABOUT HUFFMAN CODING. THERE ARE SOME REALLY GREAT VIDEOS ABOUT IT. CHECK THEM OUT!" # 216
 
         try:
-            self.huffman.createHuffmanTree(1)
+            self.huffman.create_huffman_tree(1)
             assert 1 == 0  # Should never be reached
         except Exception as e:
             assert True
 
         try:
-            self.huffman.createHuffmanTree("")
+            self.huffman.create_huffman_tree("")
             assert 1 == 0  # Should never be reached
         except Exception as e:
             assert True
 
-        self.huffman.createHuffmanTree(text2)
+        self.huffman.create_huffman_tree(text2)
         
         self.obj["passed"] += 1
 
@@ -249,12 +249,12 @@ class Test_Objective_3:
         text = "Hello this is a test code"
 
         huffman = HuffmanTree()
-        huffman.createHuffmanTree(text)
+        huffman.create_huffman_tree(text)
 
        # The root frequency must be equal to the len of the string passed
         assert huffman.root.freq == len(text)
 
-        codes = huffman.getCodes()
+        codes = huffman.get_codes()
         freq = huffman.frequencies(text)
 
         assert codes.keys() == freq.keys()
@@ -276,12 +276,12 @@ class Test_Objective_3:
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac lectus purus. Integer nibh nisl, pretium in nibh ac, mollis interdum dolor. Etiam sit amet fermentum dui, sit amet maximus tellus. Mauris vel commodo nulla. Nulla facilisi. Quisque pulvinar commodo odio et accumsan. Phasellus volutpat luctus quam, fermentum tristique tortor feugiat nec. Morbi non aliquet libero. Nulla sed odio vel erat facilisis congue. Nullam commodo elementum enim, sit amet porta ante pretium at. Quisque sollicitudin lobortis lorem, pulvinar blandit ligula sagittis vitae. Phasellus molestie arcu ipsum, vel dictum felis facilisis eget. Donec convallis varius enim, sed tristique ante rutrum in. Donec porta eros sit amet eros ultrices, a pretium massa rhoncus. Duis a venenatis sapien. Quisque dignissim eu nulla id dapibus. Proin mollis vulputate diam, at dignissim urna facilisis et. Morbi vel egestas metus. Aenean tempus sit amet elit sit amet rhoncus. Vivamus vulputate nisl dignissim augue consequat sollicitudin. Nulla lacus lorem, auctor vel ullamcorper quis, dapibus a tortor. Suspendisse consequat, leo at consectetur accumsan, leo nunc dapibus arcu, at eleifend enim ex eu turpis. Sed condimentum lacus vel dolor accumsan, sed facilisis lorem sollicitudin. Pellentesque vitae aliquam libero, ac imperdiet justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus porta, odio nec gravida dignissim, est purus blandit ex, nec ullamcorper dolor justo ut tellus. Cras vel mollis elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vel tellus facilisis, suscipit libero sit amet, ornare ligula. Suspendisse placerat maximus facilisis. Quisque tristique tempor rutrum. Nullam laoreet leo sit amet vulputate cursus. Quisque pharetra, sapien vel tincidunt porta, elit magna condimentum velit, sed rutrum enim sapien vel ligula. Proin sollicitudin, nibh hendrerit fermentum dignissim, augue elit viverra nulla, sed semper lectus metus a ligula. Vestibulum consequat, urna ac placerat hendrerit, leo justo aliquam libero, ut feugiat erat mi at nunc. Quisque commodo, elit eget fringilla commodo, lectus arcu consectetur ipsum, id vestibulum justo libero eu nunc. Donec laoreet convallis vulputate. Nunc placerat libero quis venenatis laoreet. Donec at congue magna. Etiam vel nibh vel odio ultrices tincidunt. Vestibulum porttitor tincidunt nisl interdum venenatis. Duis facilisis neque ac placerat pulvinar. Praesent eget quam enim. Proin euismod lorem a fermentum fermentum. Donec arcu lorem, hendrerit vitae luctus quis, feugiat iaculis nisi. Sed id fermentum metus, sit amet tincidunt quam. Donec facilisis, massa quis fermentum ullamcorper, lorem turpis commodo diam, non tempus risus dolor sed eros. Suspendisse eget sollicitudin dui, ac consectetur felis. Sed elit turpis, ornare at cursus in, blandit eget nulla. Nulla facilisi. Ut et lacus nisi. Maecenas ut lectus porttitor, semper massa at, tincidunt urna. Curabitur eleifend dictum nisl, non interdum dolor molestie et. Aenean sed aliquet justo. Duis facilisis interdum lectus eu dapibus. Maecenas at iaculis tortor. Vestibulum venenatis ac quam sed pulvinar. Nunc sagittis mi orci, id tempus elit convallis a. Donec odio est, rutrum vel orci non, consectetur rhoncus sapien. Aenean gravida arcu vitae pharetra aliquet. Duis at euismod tortor, eu rutrum tellus. Sed ut massa sit amet orci lobortis pharetra vel nec nisl. Donec condimentum commodo ligula, a rutrum diam lobortis ut. Maecenas et aliquam tortor, sit amet molestie enim. Quisque et laoreet ligula. Curabitur congue magna vitae risus accumsan porttitor. Duis vitae nisi at ipsum mollis dictum. Phasellus tristique velit sed mauris porta ullamcorper. Nam nec mauris id turpis sodales euismod. Donec magna enim, tristique ut sagittis a, sollicitudin ut sem. Donec posuere, orci quis mattis scelerisque, ligula ligula sollicitudin metus, quis iaculis turpis turpis eu diam. Morbi vitae nulla vel ligula pellentesque molestie sed a lorem. Suspendisse orci dui, rhoncus sed tincidunt vel, facilisis eu urna. Pellentesque semper placerat metus at mattis. Aliquam tempor dui lorem, sit amet molestie diam eleifend quis. Ut libero odio, gravida in feugiat ullamcorper, venenatis non justo. Quisque et nulla mattis, luctus sapien eu, pellentesque nunc. Sed ultrices commodo nibh ut mollis. Nunc non mi lacinia, sodales dolor nec, lacinia velit. Mauris scelerisque varius sagittis. Donec consectetur elit non odio consectetur luctus. Praesent ut condimentum orci, suscipit congue enim. Vestibulum sollicitudin sem nec lectus varius auctor. Pellentesque dapibus vehicula ante eu suscipit. Donec quis convallis sapien. Suspendisse eget tortor bibendum, fermentum ipsum vitae, viverra magna. Donec rhoncus, enim sit amet imperdiet fermentum, urna nunc bibendum turpis, id bibendum est nibh in eros. Pellentesque ac consequat nisl. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In facilisis lectus sit amet mauris hendrerit, vel vulputate est dictum. Duis a nisi at mi tempus scelerisque. Nullam magna justo, consequat ut efficitur at, ornare in diam. Quisque vehicula orci id arcu laoreet mattis. Suspendisse eget dignissim augue, sed egestas ante. Phasellus consectetur cursus massa. Donec vehicula enim ac ex viverra molestie. Vivamus pulvinar nunc et turpis ultricies, at ornare enim malesuada. Integer ac malesuada felis, id dapibus ex. Proin blandit, justo in efficitur molestie, ipsum velit pharetra nunc, eu ullamcorper dui velit eu nisl. Duis quis venenatis est, euismod fringilla purus. Morbi sed odio ex. Vivamus eu erat risus. Nullam vel elementum orci, sit amet faucibus dui. Pellentesque at vulputate nisi, eu condimentum eros. Proin commodo nulla nec felis auctor, et sodales ipsum consequat. Nulla eget pellentesque quam. Mauris lobortis est vitae nibh malesuada porttitor. Vestibulum malesuada augue eu nulla tempor, et scelerisque lectus blandit. Morbi elementum suscipit semper. Cras mauris magna, venenatis ac ante ac, efficitur ultrices lectus. Nunc placerat odio velit, sit amet accumsan eros molestie a. Nunc efficitur quam ut elementum rhoncus. Praesent commodo dui vel leo rutrum posuere."
 
         huffman = HuffmanTree()
-        huffman.createHuffmanTree(text)
+        huffman.create_huffman_tree(text)
 
        # The root frequency must be equal to the len of the string passed
         assert huffman.root.freq == len(text) 
 
-        codes = huffman.getCodes()
+        codes = huffman.get_codes()
         freq = huffman.frequencies(text)
 
         assert codes.keys() == freq.keys()

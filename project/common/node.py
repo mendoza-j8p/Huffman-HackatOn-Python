@@ -1,4 +1,4 @@
-class Node: 
+class Node:
     def __init__(self, char, freq, left=None, right=None):
         self.char = char
         self.freq = freq
@@ -6,4 +6,4 @@ class Node:
         self.right = right
 
     def __str__(self):
-        return "Char: {} | Freq: {}".format(self.char, self.freq)
+        return f"Char: {self.char} | Freq: {self.freq}"
